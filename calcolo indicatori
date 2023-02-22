@@ -1,0 +1,38 @@
+#pacchetti
+install.packages("readxl") #x importare dati
+install.packages("vegan")#per calcolo schannon
+
+library("readxl")
+library("vegan")
+
+#importo dati
+Butterflydata <- read_excel("D:/università/bologna/tesi/Butterfly_richness_abund_ebms.xlsx")
+
+#controllo la struttura
+str(Butterflydata)
+#trasformo la tabella P_nspp da carachter a numeric
+Butterflydata$P_nspp <- as.numeric(Butterflydata$P_nspp)
+
+#calcolo indice diversità di shannon per:
+#Nspp
+div_Nspp<-diversity(Butterflydata$Nspp) 
+#Nspp_clbms
+div_Nspp_clbms<-diversity(Butterflydata$Nspp_clbms)
+#P_nspp
+div_P_nspp<-diversity(Butterflydata$P_nspp)
+
+#calcolo indice diversità di simpson per:
+#Nspp
+simp_Nspp<-simpson.unb(Butterflydata$Nspp) 
+#Nspp_clbms
+simp_Nspp_clbms<-simpson.unb(Butterflydata$Nspp_clbms)
+#P_nspp
+simp_P_nspp<-simpson.unb(Butterflydata$P_nspp)
+
+#calcolo indice di Pielou per:
+#Nspp
+Pie_Nspp<-div_Nspp/log(Butterflydata$Nspp)
+#Nspp_clbms
+Pie_Nspp_clbms<-div_Nspp_clbms/log(Butterflydata$Nspp_clbms)
+#P_nspp
+pie_P_nspp<-div_P_nspp/log(Butterflydata$P_nspp)
